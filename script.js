@@ -1,4 +1,3 @@
-// Полный список героев (124) с контр-пиками
 const heroes = {
     "Abaddon": ["Ancient Apparition", "Shadow Demon", "Outworld Destroyer"],
     "Alchemist": ["Ancient Apparition", "Shadow Demon", "Invoker"],
@@ -48,7 +47,7 @@ const heroes = {
     "Kunkka": ["Ancient Apparition", "Shadow Demon", "Invoker"],
     "Legion Commander": ["Winter Wyvern", "Dazzle", "Oracle"],
     "Leshrac": ["Pugna", "Silencer", "Anti-Mage"],
-    "Lich": ["Pugna", "Silencer", "Ancient Apparition"],
+    "Lichard": ["Pugna", "Silencer", "Ancient Apparition"],
     "Lifestealer": ["Ancient Apparition", "Shadow Demon", "Dazzle"],
     "Lina": ["Pugna", "Silencer", "Anti-Mage"],
     "Lion": ["Pugna", "Invoker", "Shadow Fiend"],
@@ -167,7 +166,7 @@ document.addEventListener("DOMContentLoaded", () => {
         draftScreen.style.display = "none";
         counterPicksDiv.style.display = "none";
         restartBtn.style.display = "none";
-        heroList.style.display = "block"; // Восстанавливаем список героев
+        heroList.style.display = "block";
     }
 
     function updateInterface() {
@@ -175,11 +174,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const heroesToPick = pickPhase <= 4 ? 2 : 1;
         phaseTitle.textContent = `Фаза ${pickPhase} (Выбор ${pickCount}/${heroesToPick})`;
         
-        // Отображаем пики с изображениями
         myPicksList.innerHTML = myPicks.length ? myPicks.map(h => `<li><img src="https://cdn.dota2.com/apps/dota2/images/heroes/${h.toLowerCase().replace(/ /g, "_")}_icon.png" alt="${h}">${h}</li>`).join("") : "<li>Пусто</li>";
         enemyPicksList.innerHTML = enemyPicks.length ? enemyPicks.map(h => `<li><img src="https://cdn.dota2.com/apps/dota2/images/heroes/${h.toLowerCase().replace(/ /g, "_")}_icon.png" alt="${h}">${h}</li>`).join("") : "<li>Пусто</li>";
         
-        // Показываем контр-пики после вражеской фазы
         const wasEnemyTurn = (pickPhase % 2 === 0 && firstTeam === "enemy") || (pickPhase % 2 === 1 && firstTeam === "my");
         if (pickCount === 0 && pickPhase > 1 && wasEnemyTurn) {
             showCounterPicks();
@@ -187,10 +184,9 @@ document.addEventListener("DOMContentLoaded", () => {
             counterPicksDiv.style.display = "none";
         }
         
-        // После 6-й фазы скрываем лишнее
         if (pickPhase === 6 && pickCount === 1) {
-            heroList.style.display = "none"; // Скрываем список героев
-            counterPicksDiv.style.display = "none"; // Скрываем контр-пики
+            heroList.style.display = "none";
+            counterPicksDiv.style.display = "none";
             restartBtn.style.display = "block";
             phaseTitle.textContent = "Драфт завершён!";
         }
@@ -210,7 +206,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }
         }
-        counterPicksList.innerHTML = suggestions.slice(0, 3).map(h => `<li><img src="https://cdn.dota2.com/apps/dota2/images/heroes/${h.toLowerCase().replace(/ /g, "_")}_icon.png" alt="${h}">${h}</li>`).join("");
+        counterPicksList.innerHTML = "";
+        suggestions.slice(0, 3).forEach(counter => {
+            const card = document.createElement("li");
+            card.className = "hero-card";
+            card.innerHTML = `
+                <img src="https://cdn.dota2.com/apps/dota2/images/heroes/${counter.toLowerCase().replace(/ /g, "_")}_icon.png" alt="${counter}">
+                <span>${counter}</span>
+            `;
+            card.addEventListener("click", () => pickHero(counter));
+            counterPicksList.appendChild(card);
+        });
     }
 
     function renderHeroes() {
@@ -250,5 +256,4 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-// Инициализация Telegram Web App
 window.Telegram.WebApp.ready();
