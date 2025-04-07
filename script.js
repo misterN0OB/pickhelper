@@ -132,7 +132,6 @@ let pickPhase = 0;
 let pickCount = 0;
 let firstTeam = null;
 
-// Ждём загрузки DOM
 document.addEventListener("DOMContentLoaded", () => {
     const startScreen = document.getElementById("start-screen");
     const draftScreen = document.getElementById("draft-screen");
@@ -144,7 +143,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const heroList = document.getElementById("hero-list");
     const restartBtn = document.getElementById("restart");
 
-    // Привязываем события к кнопкам
     document.getElementById("enemy-first").addEventListener("click", () => startDraft("enemy"));
     document.getElementById("my-first").addEventListener("click", () => startDraft("my"));
     restartBtn.addEventListener("click", resetDraft);
@@ -169,6 +167,7 @@ document.addEventListener("DOMContentLoaded", () => {
         draftScreen.style.display = "none";
         counterPicksDiv.style.display = "none";
         restartBtn.style.display = "none";
+        heroList.style.display = "block"; // Восстанавливаем список героев
     }
 
     function updateInterface() {
@@ -176,10 +175,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const heroesToPick = pickPhase <= 4 ? 2 : 1;
         phaseTitle.textContent = `Фаза ${pickPhase} (Выбор ${pickCount}/${heroesToPick})`;
         
-        myPicksList.innerHTML = myPicks.length ? myPicks.map(h => `<li>${h}</li>`).join("") : "<li>Пусто</li>";
-        enemyPicksList.innerHTML = enemyPicks.length ? enemyPicks.map(h => `<li>${h}</li>`).join("") : "<li>Пусто</li>";
+        // Отображаем пики с изображениями
+        myPicksList.innerHTML = myPicks.length ? myPicks.map(h => `<li><img src="https://cdn.dota2.com/apps/dota2/images/heroes/${h.toLowerCase().replace(/ /g, "_")}_icon.png" alt="${h}">${h}</li>`).join("") : "<li>Пусто</li>";
+        enemyPicksList.innerHTML = enemyPicks.length ? enemyPicks.map(h => `<li><img src="https://cdn.dota2.com/apps/dota2/images/heroes/${h.toLowerCase().replace(/ /g, "_")}_icon.png" alt="${h}">${h}</li>`).join("") : "<li>Пусто</li>";
         
-        // Показываем контр-пики, если предыдущая фаза была вражеской и завершена
+        // Показываем контр-пики после вражеской фазы
         const wasEnemyTurn = (pickPhase % 2 === 0 && firstTeam === "enemy") || (pickPhase % 2 === 1 && firstTeam === "my");
         if (pickCount === 0 && pickPhase > 1 && wasEnemyTurn) {
             showCounterPicks();
@@ -187,10 +187,12 @@ document.addEventListener("DOMContentLoaded", () => {
             counterPicksDiv.style.display = "none";
         }
         
+        // После 6-й фазы скрываем лишнее
         if (pickPhase === 6 && pickCount === 1) {
-            showCounterPicks(); // Показываем контр-пики в конце, если враги пикают последними
+            heroList.style.display = "none"; // Скрываем список героев
+            counterPicksDiv.style.display = "none"; // Скрываем контр-пики
             restartBtn.style.display = "block";
-            phaseTitle.textContent += " - Драфт завершён!";
+            phaseTitle.textContent = "Драфт завершён!";
         }
     }
 
@@ -208,17 +210,21 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }
         }
-        counterPicksList.innerHTML = suggestions.slice(0, 3).map(h => `<li>${h}</li>`).join("");
+        counterPicksList.innerHTML = suggestions.slice(0, 3).map(h => `<li><img src="https://cdn.dota2.com/apps/dota2/images/heroes/${h.toLowerCase().replace(/ /g, "_")}_icon.png" alt="${h}">${h}</li>`).join("");
     }
 
     function renderHeroes() {
         heroList.innerHTML = "";
         for (let hero in heroes) {
             if (!myPicks.includes(hero) && !enemyPicks.includes(hero)) {
-                const btn = document.createElement("button");
-                btn.textContent = hero;
-                btn.addEventListener("click", () => pickHero(hero));
-                heroList.appendChild(btn);
+                const card = document.createElement("div");
+                card.className = "hero-card";
+                card.innerHTML = `
+                    <img src="https://cdn.dota2.com/apps/dota2/images/heroes/${hero.toLowerCase().replace(/ /g, "_")}_icon.png" alt="${hero}">
+                    <span>${hero}</span>
+                `;
+                card.addEventListener("click", () => pickHero(hero));
+                heroList.appendChild(card);
             }
         }
     }
