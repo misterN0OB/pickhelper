@@ -31,14 +31,15 @@ button:hover {
 }
 
 #hero-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 колонки по умолчанию */
+    gap: 8px; /* Уменьшенный отступ */
+    justify-items: center;
+    padding: 10px;
 }
 
 .hero-card {
-    width: 100px;
+    width: 80px; /* Уменьшена ширина карточки */
     text-align: center;
     cursor: pointer;
     transition: transform 0.2s;
@@ -49,17 +50,17 @@ button:hover {
 }
 
 .hero-card img {
-    width: 80px;
-    height: 80px;
+    width: 60px; /* Уменьшен размер изображения */
+    height: 60px;
     border-radius: 5px;
     border: 2px solid #444;
 }
 
 .hero-card span {
     display: block;
-    font-size: 12px;
+    font-size: 11px; /* Уменьшен шрифт */
     color: #ccc;
-    margin-top: 5px;
+    margin-top: 3px; /* Уменьшен отступ */
 }
 
 ul {
@@ -83,4 +84,27 @@ li img {
 #restart {
     display: block;
     margin: 20px auto;
+}
+
+/* Адаптивность для узких экранов */
+@media (max-width: 600px) {
+    #hero-list {
+        grid-template-columns: repeat(3, 1fr); /* 3 колонки на средних экранах */
+    }
+}
+
+@media (max-width: 400px) {
+    #hero-list {
+        grid-template-columns: repeat(2, 1fr); /* 2 колонки на узких экранах */
+    }
+    .hero-card {
+        width: 70px;
+    }
+    .hero-card img {
+        width: 50px;
+        height: 50px;
+    }
+    .hero-card span {
+        font-size: 10px;
+    }
 }
