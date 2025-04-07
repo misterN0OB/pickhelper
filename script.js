@@ -135,7 +135,7 @@ let firstTeam = null;
 // Ждём загрузки DOM
 document.addEventListener("DOMContentLoaded", () => {
     const startScreen = document.getElementById("start-screen");
-    const draftScreen = document.getElementById("draft-screen"); // Исправлено ID
+    const draftScreen = document.getElementById("draft-screen");
     const phaseTitle = document.getElementById("phase-title");
     const myPicksList = document.getElementById("my-picks-list");
     const enemyPicksList = document.getElementById("enemy-picks-list");
@@ -179,13 +179,16 @@ document.addEventListener("DOMContentLoaded", () => {
         myPicksList.innerHTML = myPicks.length ? myPicks.map(h => `<li>${h}</li>`).join("") : "<li>Пусто</li>";
         enemyPicksList.innerHTML = enemyPicks.length ? enemyPicks.map(h => `<li>${h}</li>`).join("") : "<li>Пусто</li>";
         
-        if (pickCount === heroesToPick && isEnemyTurn()) {
+        // Показываем контр-пики, если предыдущая фаза была вражеской и завершена
+        const wasEnemyTurn = (pickPhase % 2 === 0 && firstTeam === "enemy") || (pickPhase % 2 === 1 && firstTeam === "my");
+        if (pickCount === 0 && pickPhase > 1 && wasEnemyTurn) {
             showCounterPicks();
         } else {
             counterPicksDiv.style.display = "none";
         }
         
         if (pickPhase === 6 && pickCount === 1) {
+            showCounterPicks(); // Показываем контр-пики в конце, если враги пикают последними
             restartBtn.style.display = "block";
             phaseTitle.textContent += " - Драфт завершён!";
         }
@@ -210,7 +213,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function renderHeroes() {
         heroList.innerHTML = "";
-        const heroesToPick = pickPhase <= 4 ? 2 : 1;
         for (let hero in heroes) {
             if (!myPicks.includes(hero) && !enemyPicks.includes(hero)) {
                 const btn = document.createElement("button");
