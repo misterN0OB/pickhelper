@@ -12,7 +12,7 @@ h1, h2, h3 {
 }
 
 button {
-    padding: 10px 20px;
+    padding: 10px;
     margin: 5px;
     background-color: #d32f2f;
     color: white;
@@ -30,16 +30,37 @@ button:hover {
     text-align: center;
 }
 
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.button-container button {
+    width: 80px; /* Квадратные кнопки */
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 5px;
+}
+
+.dota-logo {
+    width: 150px;
+    margin-top: 10px;
+}
+
 #hero-list {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 колонки по умолчанию */
-    gap: 8px; /* Уменьшенный отступ */
+    grid-template-columns: repeat(3, 1fr); /* Всегда 3 колонки */
+    gap: 8px;
     justify-items: center;
     padding: 10px;
 }
 
 .hero-card {
-    width: 80px; /* Уменьшена ширина карточки */
+    width: 80px;
     text-align: center;
     cursor: pointer;
     transition: transform 0.2s;
@@ -50,7 +71,7 @@ button:hover {
 }
 
 .hero-card img {
-    width: 60px; /* Уменьшен размер изображения */
+    width: 60px;
     height: 60px;
     border-radius: 5px;
     border: 2px solid #444;
@@ -58,9 +79,9 @@ button:hover {
 
 .hero-card span {
     display: block;
-    font-size: 11px; /* Уменьшен шрифт */
+    font-size: 11px;
     color: #ccc;
-    margin-top: 3px; /* Уменьшен отступ */
+    margin-top: 3px;
 }
 
 ul {
@@ -81,30 +102,11 @@ li img {
     border-radius: 5px;
 }
 
+#counter-picks-list .hero-card {
+    margin: 5px auto;
+}
+
 #restart {
     display: block;
     margin: 20px auto;
-}
-
-/* Адаптивность для узких экранов */
-@media (max-width: 600px) {
-    #hero-list {
-        grid-template-columns: repeat(3, 1fr); /* 3 колонки на средних экранах */
-    }
-}
-
-@media (max-width: 400px) {
-    #hero-list {
-        grid-template-columns: repeat(2, 1fr); /* 2 колонки на узких экранах */
-    }
-    .hero-card {
-        width: 70px;
-    }
-    .hero-card img {
-        width: 50px;
-        height: 50px;
-    }
-    .hero-card span {
-        font-size: 10px;
-    }
 }
