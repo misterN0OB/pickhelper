@@ -1,36 +1,86 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    background-color: #1a1a1a;
+    color: #fff;
     margin: 0;
     padding: 20px;
 }
+
 h1, h2, h3 {
-    color: #333;
+    color: #e0e0e0;
+    text-align: center;
 }
+
 button {
-    padding: 10px;
+    padding: 10px 20px;
     margin: 5px;
-    background-color: #007bff;
+    background-color: #d32f2f;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 16px;
 }
+
 button:hover {
-    background-color: #0056b3;
+    background-color: #b71c1c;
 }
+
+#start-screen {
+    text-align: center;
+}
+
 #hero-list {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+    justify-content: center;
 }
-#hero-list button {
-    width: 120px;
+
+.hero-card {
+    width: 100px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.2s;
 }
+
+.hero-card:hover {
+    transform: scale(1.05);
+}
+
+.hero-card img {
+    width: 80px;
+    height: 80px;
+    border-radius: 5px;
+    border: 2px solid #444;
+}
+
+.hero-card span {
+    display: block;
+    font-size: 12px;
+    color: #ccc;
+    margin-top: 5px;
+}
+
 ul {
     list-style: none;
     padding: 0;
 }
+
 li {
     padding: 5px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+li img {
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+}
+
+#restart {
+    display: block;
+    margin: 20px auto;
 }
