@@ -168,10 +168,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const counterPicksDiv = document.getElementById("counter-picks");
     const heroList = document.getElementById("hero-list");
     const restartBtn = document.getElementById("restart");
+    const shareBtn = document.getElementById("share");
 
     document.getElementById("enemy-first").addEventListener("click", () => startDraft("enemy"));
     document.getElementById("my-first").addEventListener("click", () => startDraft("my"));
     restartBtn.addEventListener("click", resetDraft);
+    shareBtn.addEventListener("click", shareDraft);
 
     function getHeroImageName(hero) {
         return heroImageMap[hero] || hero.toLowerCase().replace(/ /g, "_");
@@ -183,6 +185,8 @@ document.addEventListener("DOMContentLoaded", () => {
         pickCount = 0;
         startScreen.style.display = "none";
         draftScreen.style.display = "block";
+        heroList.style.display = "flex"; // Явно задаём flex
+        heroList.style.flexWrap = "wrap"; // Убеждаемся, что wrap включён
         updateInterface();
         renderHeroes();
     }
@@ -197,7 +201,28 @@ document.addEventListener("DOMContentLoaded", () => {
         draftScreen.style.display = "none";
         counterPicksDiv.style.display = "none";
         restartBtn.style.display = "none";
-        heroList.style.display = "block";
+        shareBtn.style.display = "none";
+        heroList.style.display = "flex"; // Явно задаём flex при сбросе
+        heroList.style.flexWrap = "wrap"; // Убеждаемся, что wrap включён
+        heroList.innerHTML = ""; // Очищаем список для нового рендера
+    }
+
+    function shareDraft() {
+        const draftText = `Мой драфт:\nТвой пик: ${myPicks.join(", ") || "Пусто"}\nВражеский пик: ${enemyPicks.join(", ") || "Пусто"}`;
+        Telegram.WebApp.showPopup({
+            title: "Поделиться драфтом",
+            message: draftText,
+            buttons: [
+                { id: "copy", type: "default", text: "Скопировать" },
+                { type: "cancel", text: "Закрыть" }
+            ]
+        }, (buttonId) => {
+            if (buttonId === "copy") {
+                navigator.clipboard.writeText(draftText).then(() => {
+                    Telegram.WebApp.showAlert("Драфт скопирован в буфер обмена!");
+                });
+            }
+        });
     }
 
     function updateInterface() {
@@ -219,6 +244,7 @@ document.addEventListener("DOMContentLoaded", () => {
             heroList.style.display = "none";
             counterPicksDiv.style.display = "none";
             restartBtn.style.display = "block";
+            shareBtn.style.display = "block";
             phaseTitle.textContent = "Драфт завершён!";
         }
     }
