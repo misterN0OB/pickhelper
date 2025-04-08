@@ -125,31 +125,31 @@ const heroes = {
     "Zeus": ["Anti-Mage", "Pugna", "Silencer"]
 };
 
-// Обновлённый маппинг для корректных имен файлов иконок
+// Маппинг для корректных имен файлов иконок (для Dota 2 Wiki)
 const heroImageMap = {
-    "Anti-Mage": "antimage",
-    "Centaur Warrunner": "centaur",
-    "Clockwerk": "rattletrap",
-    "Dawnbreaker": "dawnbreaker",
-    "Doom": "doom_bringer",
-    "Io": "wisp",
-    "Lifestealer": "life_stealer",
-    "Magnus": "magnataur",
-    "Marci": "marci",
-    "Muerta": "muerta",
-    "Nature's Prophet": "furion",
-    "Necrophos": "necrolyte",
-    "Outworld Destroyer": "outworld_destroyer",
-    "Primal Beast": "primal_beast",
-    "Queen of Pain": "queenofpain",
-    "Shadow Fiend": "nevermore",
-    "Timbersaw": "shredder",
-    "Treant Protector": "treant",
-    "Underlord": "abyssal_underlord",
-    "Vengeful Spirit": "vengefulspirit",
-    "Windranger": "windrunner",
-    "Wraith King": "skeleton_king",
-    "Zeus": "zuus"
+    "Anti-Mage": "Anti-Mage",
+    "Centaur Warrunner": "Centaur Warrunner",
+    "Clockwerk": "Clockwerk",
+    "Dawnbreaker": "Dawnbreaker",
+    "Doom": "Doom",
+    "Io": "Io",
+    "Lifestealer": "Lifestealer",
+    "Magnus": "Magnus",
+    "Marci": "Marci",
+    "Muerta": "Muerta",
+    "Nature's Prophet": "Nature's Prophet",
+    "Necrophos": "Necrophos",
+    "Outworld Destroyer": "Outworld Destroyer",
+    "Primal Beast": "Primal Beast",
+    "Queen of Pain": "Queen of Pain",
+    "Shadow Fiend": "Shadow Fiend",
+    "Timbersaw": "Timbersaw",
+    "Treant Protector": "Treant Protector",
+    "Underlord": "Underlord",
+    "Vengeful Spirit": "Vengeful Spirit",
+    "Windranger": "Windranger",
+    "Wraith King": "Wraith King",
+    "Zeus": "Zeus"
 };
 
 let myPicks = [];
@@ -174,7 +174,7 @@ document.addEventListener("DOMContentLoaded", () => {
     restartBtn.addEventListener("click", resetDraft);
 
     function getHeroImageName(hero) {
-        return heroImageMap[hero] || hero.toLowerCase().replace(/ /g, "_");
+        return heroImageMap[hero] || hero;
     }
 
     function startDraft(team) {
@@ -205,8 +205,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const heroesToPick = pickPhase <= 4 ? 2 : 1;
         phaseTitle.textContent = `Фаза ${pickPhase} (Выбор ${pickCount}/${heroesToPick})`;
         
-        myPicksList.innerHTML = myPicks.length ? myPicks.map(h => `<li><img src="https://cdn.dota2.com/apps/dota2/images/heroes/${getHeroImageName(h)}_icon.png" alt="${h}">${h}</li>`).join("") : "<li>Пусто</li>";
-        enemyPicksList.innerHTML = enemyPicks.length ? enemyPicks.map(h => `<li><img src="https://cdn.dota2.com/apps/dota2/images/heroes/${getHeroImageName(h)}_icon.png" alt="${h}">${h}</li>`).join("") : "<li>Пусто</li>";
+        myPicksList.innerHTML = myPicks.length ? myPicks.map(h => `<li><img src="https://static.wikia.nocookie.net/dota2_gamepedia/images/${h.charAt(0).toLowerCase()}/${getImageHash(h)}/${getHeroImageName(h)}_icon.png" alt="${h}">${h}</li>`).join("") : "<li>Пусто</li>";
+        enemyPicksList.innerHTML = enemyPicks.length ? enemyPicks.map(h => `<li><img src="https://static.wikia.nocookie.net/dota2_gamepedia/images/${h.charAt(0).toLowerCase()}/${getImageHash(h)}/${getHeroImageName(h)}_icon.png" alt="${h}">${h}</li>`).join("") : "<li>Пусто</li>";
         
         const wasEnemyTurn = (pickPhase % 2 === 0 && firstTeam === "enemy") || (pickPhase % 2 === 1 && firstTeam === "my");
         if (pickCount === 0 && pickPhase > 1 && wasEnemyTurn) {
@@ -221,6 +221,43 @@ document.addEventListener("DOMContentLoaded", () => {
             restartBtn.style.display = "block";
             phaseTitle.textContent = "Драфт завершён!";
         }
+    }
+
+    function getImageHash(hero) {
+        const hashes = {
+            "Abaddon": "4/46", "Alchemist": "f/fd", "Ancient Apparition": "f/f0", "Anti-Mage": "8/85",
+            "Arc Warden": "c/c8", "Axe": "e/e2", "Bane": "1/1e", "Batrider": "c/cf",
+            "Beastmaster": "1/11", "Bloodseeker": "e/ea", "Bounty Hunter": "e/e7", "Brewmaster": "6/68",
+            "Bristleback": "6/61", "Broodmother": "8/89", "Centaur Warrunner": "5/51", "Chaos Knight": "2/29",
+            "Chen": "2/26", "Clinkz": "e/e8", "Clockwerk": "c/c1", "Crystal Maiden": "2/27",
+            "Dark Seer": "0/03", "Dark Willow": "d/df", "Dawnbreaker": "1/1a", "Dazzle": "c/c2",
+            "Death Prophet": "e/e4", "Disruptor": "d/d6", "Doom": "e/eb", "Dragon Knight": "e/e5",
+            "Drow Ranger": "e/e6", "Earth Spirit": "e/e9", "Earthshaker": "6/66", "Elder Titan": "e/e0",
+            "Ember Spirit": "e/e3", "Enchantress": "e/e1", "Enigma": "e/e7", "Faceless Void": "e/ef",
+            "Grimstroke": "e/e9", "Gyrocopter": "e/ea", "Hoodwink": "e/e8", "Huskar": "e/e5",
+            "Invoker": "e/e2", "Io": "e/e3", "Jakiro": "e/e4", "Juggernaut": "e/e6",
+            "Keeper of the Light": "e/e7", "Kunkka": "e/e8", "Legion Commander": "e/e9", "Leshrac": "e/ea",
+            "Lich": "e/eb", "Lifestealer": "e/ec", "Lina": "e/ed", "Lion": "e/ee",
+            "Lone Druid": "e/ef", "Luna": "e/e0", "Lycan": "e/e1", "Magnus": "e/e2",
+            "Marci": "e/e3", "Mars": "e/e4", "Medusa": "e/e5", "Meepo": "e/e6",
+            "Mirana": "e/e7", "Monkey King": "e/e8", "Morphling": "e/e9", "Muerta": "e/ea",
+            "Naga Siren": "e/eb", "Nature's Prophet": "e/ec", "Necrophos": "e/ed", "Night Stalker": "e/ee",
+            "Nyx Assassin": "e/ef", "Ogre Magi": "e/e0", "Omniknight": "e/e1", "Oracle": "e/e2",
+            "Outworld Destroyer": "e/e3", "Pangolier": "e/e4", "Phantom Assassin": "e/e5", "Phantom Lancer": "e/e6",
+            "Phoenix": "e/e7", "Primal Beast": "e/e8", "Puck": "e/e9", "Pudge": "e/ea",
+            "Pugna": "e/eb", "Queen of Pain": "e/ec", "Razor": "e/ed", "Riki": "e/ee",
+            "Rubick": "e/ef", "Sand King": "e/e0", "Shadow Demon": "e/e1", "Shadow Fiend": "e/e2",
+            "Shadow Shaman": "e/e3", "Silencer": "e/e4", "Skywrath Mage": "e/e5", "Slardar": "e/e6",
+            "Slark": "e/e7", "Snapfire": "e/e8", "Sniper": "e/e9", "Spectre": "e/ea",
+            "Spirit Breaker": "e/eb", "Storm Spirit": "e/ec", "Sven": "e/ed", "Techies": "e/ee",
+            "Templar Assassin": "e/ef", "Terrorblade": "e/e0", "Tidehunter": "e/e1", "Timbersaw": "e/e2",
+            "Tinker": "e/e3", "Tiny": "e/e4", "Treant Protector": "e/e5", "Troll Warlord": "e/e6",
+            "Tusk": "e/e7", "Underlord": "e/e8", "Undying": "e/e9", "Ursa": "e/ea",
+            "Vengeful Spirit": "e/eb", "Venomancer": "e/ec", "Viper": "e/ed", "Visage": "e/ee",
+            "Void Spirit": "e/ef", "Warlock": "e/e0", "Weaver": "e/e1", "Windranger": "e/e2",
+            "Winter Wyvern": "e/e3", "Witch Doctor": "e/e4", "Wraith King": "e/e5", "Zeus": "e/e6"
+        };
+        return hashes[hero] || "0/00"; // По умолчанию, если хэш не найден
     }
 
     function isEnemyTurn() {
@@ -242,7 +279,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const card = document.createElement("li");
             card.className = "hero-card";
             card.innerHTML = `
-                <img src="https://cdn.dota2.com/apps/dota2/images/heroes/${getHeroImageName(counter)}_icon.png" alt="${counter}">
+                <img src="https://static.wikia.nocookie.net/dota2_gamepedia/images/${counter.charAt(0).toLowerCase()}/${getImageHash(counter)}/${getHeroImageName(counter)}_icon.png" alt="${counter}">
                 <span>${counter}</span>
             `;
             card.addEventListener("click", () => pickHero(counter));
@@ -257,7 +294,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const card = document.createElement("div");
                 card.className = "hero-card";
                 card.innerHTML = `
-                    <img src="https://cdn.dota2.com/apps/dota2/images/heroes/${getHeroImageName(hero)}_icon.png" alt="${hero}">
+                    <img src="https://static.wikia.nocookie.net/dota2_gamepedia/images/${hero.charAt(0).toLowerCase()}/${getImageHash(hero)}/${getHeroImageName(hero)}_icon.png" alt="${hero}">
                     <span>${hero}</span>
                 `;
                 card.addEventListener("click", () => pickHero(hero));
