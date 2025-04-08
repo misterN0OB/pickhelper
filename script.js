@@ -125,20 +125,21 @@ const heroes = {
     "Zeus": ["Anti-Mage", "Pugna", "Silencer"]
 };
 
-// Маппинг для корректных имен файлов иконок
+// Обновлённый маппинг для корректных имен файлов иконок
 const heroImageMap = {
     "Anti-Mage": "antimage",
     "Centaur Warrunner": "centaur",
     "Clockwerk": "rattletrap",
-    "Dawnbreaker": "dawnbreaker", // Оставляем как есть, но проверим
+    "Dawnbreaker": "dawnbreaker",
+    "Doom": "doom_bringer",
     "Io": "wisp",
     "Lifestealer": "life_stealer",
     "Magnus": "magnataur",
-    "Muerta": "muerta", // Оставляем как есть, но проверим
-    "Marci": "marci", // Оставляем как есть, но проверим
+    "Marci": "marci",
+    "Muerta": "muerta",
     "Nature's Prophet": "furion",
-    "Necrophos": "necrofrost",
-    "Outworld Destroyer": "outworld_devourer",
+    "Necrophos": "necrolyte",
+    "Outworld Destroyer": "outworld_destroyer",
     "Primal Beast": "primal_beast",
     "Queen of Pain": "queenofpain",
     "Shadow Fiend": "nevermore",
