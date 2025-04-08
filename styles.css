@@ -41,8 +41,8 @@ button:hover {
     width: 100%;
     padding: 15px 20px;
     font-weight: bold;
-    white-space: pre-line; /* Поддержка переносов строк */
-    line-height: 1.5; /* Увеличенный межстрочный интервал для читаемости */
+    white-space: pre-line;
+    line-height: 1.5;
 }
 
 .dota-logo {
@@ -65,7 +65,7 @@ button:hover {
     padding: 5px;
     border-radius: 5px;
     cursor: pointer;
-    width: calc(33.33% - 10px); /* По три в строке с учётом gap */
+    width: calc(33.33% - 10px);
     box-sizing: border-box;
 }
 
@@ -115,7 +115,7 @@ button:hover {
     background-color: #333;
     padding: 5px;
     border-radius: 5px;
-    width: calc(33.33% - 10px); /* По три в строке */
+    width: calc(33.33% - 10px);
     box-sizing: border-box;
 }
 
@@ -124,7 +124,14 @@ button:hover {
     margin-bottom: 5px;
 }
 
-#restart {
+.draft-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+#restart, #share {
     display: block;
-    margin: 20px auto;
+    width: 150px;
 }
