@@ -16,6 +16,10 @@ h1, h2, h3 {
     text-align: center;
 }
 
+h1 {
+    font-size: 36px; /* Размер заголовка Dota 2 Draft */
+}
+
 .button-container {
     display: flex;
     flex-direction: column;
@@ -43,6 +47,13 @@ button:hover {
     font-weight: bold;
     white-space: pre-line;
     line-height: 1.5;
+    font-size: 24px; /* Чуть меньше, чем h1 (36px) */
+}
+
+#share {
+    width: 100%;
+    padding: 15px 20px;
+    font-size: 18px;
 }
 
 .dota-logo {
@@ -99,6 +110,13 @@ button:hover {
     border-radius: 5px;
 }
 
+#counter-picks {
+    border: 2px solid #fff; /* Рамка для контр-пиков */
+    padding: 10px;
+    border-radius: 5px;
+    margin: 20px 0;
+}
+
 #counter-picks ul {
     display: flex;
     flex-wrap: wrap;
@@ -124,14 +142,8 @@ button:hover {
     margin-bottom: 5px;
 }
 
-.draft-buttons {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    margin: 20px 0;
-}
-
-#restart, #share {
+#restart {
     display: block;
+    margin: 20px auto;
     width: 150px;
 }
