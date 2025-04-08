@@ -125,7 +125,7 @@ const heroes = {
     "Zeus": ["Anti-Mage", "Pugna", "Silencer"]
 };
 
-// Маппинг для корректных имен файлов иконок с нового источника
+// Маппинг для корректных имен файлов иконок
 const heroImageMap = {
     "Anti-Mage": "anti_mage",
     "Centaur Warrunner": "centaur",
@@ -174,7 +174,8 @@ document.addEventListener("DOMContentLoaded", () => {
     restartBtn.addEventListener("click", resetDraft);
 
     function getHeroImageName(hero) {
-        return heroImageMap[hero] || hero.toLowerCase().replace(/ /g, "_");
+        const mappedName = heroImageMap[hero] || hero.toLowerCase().replace(/ /g, "_");
+        return mappedName;
     }
 
     function startDraft(team) {
@@ -205,8 +206,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const heroesToPick = pickPhase <= 4 ? 2 : 1;
         phaseTitle.textContent = `Фаза ${pickPhase} (Выбор ${pickCount}/${heroesToPick})`;
         
-        myPicksList.innerHTML = myPicks.length ? myPicks.map(h => `<li><img src="https://cdn.dota2.com/apps/dota2/images/dota_react/heroes/icons/${getHeroImageName(h)}.png" alt="${h}">${h}</li>`).join("") : "<li>Пусто</li>";
-        enemyPicksList.innerHTML = enemyPicks.length ? enemyPicks.map(h => `<li><img src="https://cdn.dota2.com/apps/dota2/images/dota_react/heroes/icons/${getHeroImageName(h)}.png" alt="${h}">${h}</li>`).join("") : "<li>Пусто</li>";
+        myPicksList.innerHTML = myPicks.length ? myPicks.map(h => `<li><img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/${getHeroImageName(h)}.png" alt="${h}">${h}</li>`).join("") : "<li>Пусто</li>";
+        enemyPicksList.innerHTML = enemyPicks.length ? enemyPicks.map(h => `<li><img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/${getHeroImageName(h)}.png" alt="${h}">${h}</li>`).join("") : "<li>Пусто</li>";
         
         const wasEnemyTurn = (pickPhase % 2 === 0 && firstTeam === "enemy") || (pickPhase % 2 === 1 && firstTeam === "my");
         if (pickCount === 0 && pickPhase > 1 && wasEnemyTurn) {
@@ -242,7 +243,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const card = document.createElement("li");
             card.className = "hero-card";
             card.innerHTML = `
-                <img src="https://cdn.dota2.com/apps/dota2/images/dota_react/heroes/icons/${getHeroImageName(counter)}.png" alt="${counter}">
+                <img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/${getHeroImageName(counter)}.png" alt="${counter}">
                 <span>${counter}</span>
             `;
             card.addEventListener("click", () => pickHero(counter));
@@ -257,7 +258,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const card = document.createElement("div");
                 card.className = "hero-card";
                 card.innerHTML = `
-                    <img src="https://cdn.dota2.com/apps/dota2/images/dota_react/heroes/icons/${getHeroImageName(hero)}.png" alt="${hero}">
+                    <img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/${getHeroImageName(hero)}.png" alt="${hero}">
                     <span>${hero}</span>
                 `;
                 card.addEventListener("click", () => pickHero(hero));
