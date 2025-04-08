@@ -173,7 +173,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("enemy-first").addEventListener("click", () => startDraft("enemy"));
     document.getElementById("my-first").addEventListener("click", () => startDraft("my"));
     restartBtn.addEventListener("click", resetDraft);
-    shareBtn.addEventListener("click", shareDraft);
+    shareBtn.addEventListener("click", shareApp);
 
     function getHeroImageName(hero) {
         return heroImageMap[hero] || hero.toLowerCase().replace(/ /g, "_");
@@ -185,8 +185,8 @@ document.addEventListener("DOMContentLoaded", () => {
         pickCount = 0;
         startScreen.style.display = "none";
         draftScreen.style.display = "block";
-        heroList.style.display = "flex"; // Явно задаём flex
-        heroList.style.flexWrap = "wrap"; // Убеждаемся, что wrap включён
+        heroList.style.display = "flex";
+        heroList.style.flexWrap = "wrap";
         updateInterface();
         renderHeroes();
     }
@@ -201,25 +201,25 @@ document.addEventListener("DOMContentLoaded", () => {
         draftScreen.style.display = "none";
         counterPicksDiv.style.display = "none";
         restartBtn.style.display = "none";
-        shareBtn.style.display = "none";
-        heroList.style.display = "flex"; // Явно задаём flex при сбросе
-        heroList.style.flexWrap = "wrap"; // Убеждаемся, что wrap включён
-        heroList.innerHTML = ""; // Очищаем список для нового рендера
+        heroList.style.display = "flex";
+        heroList.style.flexWrap = "wrap";
+        heroList.innerHTML = "";
     }
 
-    function shareDraft() {
-        const draftText = `Мой драфт:\nТвой пик: ${myPicks.join(", ") || "Пусто"}\nВражеский пик: ${enemyPicks.join(", ") || "Пусто"}`;
+    function shareApp() {
+        const appUrl = Telegram.WebApp.initDataUnsafe.start_param ? `https://t.me/${Telegram.WebApp.initDataUnsafe.bot_username}?start=${Telegram.WebApp.initDataUnsafe.start_param}` : `https://t.me/${Telegram.WebApp.initDataUnsafe.bot_username}`;
+        const shareText = `Попробуй это крутое мини-приложение для драфта в Dota 2!\n${appUrl}`;
         Telegram.WebApp.showPopup({
-            title: "Поделиться драфтом",
-            message: draftText,
+            title: "Поделиться приложением",
+            message: "Скопируйте ссылку и отправьте её другу!",
             buttons: [
-                { id: "copy", type: "default", text: "Скопировать" },
+                { id: "copy", type: "default", text: "Скопировать ссылку" },
                 { type: "cancel", text: "Закрыть" }
             ]
         }, (buttonId) => {
             if (buttonId === "copy") {
-                navigator.clipboard.writeText(draftText).then(() => {
-                    Telegram.WebApp.showAlert("Драфт скопирован в буфер обмена!");
+                navigator.clipboard.writeText(shareText).then(() => {
+                    Telegram.WebApp.showAlert("Ссылка скопирована! Отправь её другу через Telegram.");
                 });
             }
         });
@@ -244,7 +244,6 @@ document.addEventListener("DOMContentLoaded", () => {
             heroList.style.display = "none";
             counterPicksDiv.style.display = "none";
             restartBtn.style.display = "block";
-            shareBtn.style.display = "block";
             phaseTitle.textContent = "Драфт завершён!";
         }
     }
