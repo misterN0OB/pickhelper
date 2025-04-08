@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dota 2 Draft</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1>Dota 2 Draft</h1>
+        <div id="start-screen">
+            <div class="button-container">
+                <button id="enemy-first">Враги<br>пикнули<br>первыми</button>
+                <button id="my-first">Моя команда<br>пикнула<br>первой</button>
+            </div>
+            <img src="https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_horiz.png" alt="Dota 2 Logo" class="dota-logo">
+        </div>
+        <div id="draft-screen" style="display: none;">
+            <h2 id="phase-title"></h2>
+            <div id="my-picks">
+                <h3>Твой пик:</h3>
+                <ul id="my-picks-list"></ul>
+            </div>
+            <div id="enemy-picks">
+                <h3>Вражеский пик:</h3>
+                <ul id="enemy-picks-list"></ul>
+            </div>
+            <div id="counter-picks" style="display: none;">
+                <h3>Рекомендованные контр-пики:</h3>
+                <ul id="counter-picks-list"></ul>
+            </div>
+            <div id="hero-list"></div>
+            <div class="draft-buttons">
+                <button id="share" style="display: none;">Поделиться</button>
+                <button id="restart" style="display: none;">Перезапустить</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
