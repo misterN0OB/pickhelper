@@ -126,7 +126,7 @@ const heroes = {
 };
 
 const heroImageMap = {
-    "Anti-Mage": "anti_mage",
+    "Anti-Mage": "antimage", // Исправлено с "anti_mage" на "antimage"
     "Centaur Warrunner": "centaur",
     "Clockwerk": "rattletrap",
     "Dawnbreaker": "dawnbreaker",
@@ -250,13 +250,13 @@ document.addEventListener("DOMContentLoaded", () => {
         
         myPicksList.innerHTML = myPicks.length ? myPicks.map(h => {
             const imgSrc = `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/${getHeroImageName(h)}.png`;
-            console.log(`Loading image for ${h}: ${imgSrc}`); // Логирование URL
+            console.log(`Loading image for ${h}: ${imgSrc}`);
             return `<li><img src="${imgSrc}" alt="${h}" onerror="this.src='https://placehold.co/32x32'">${h}</li>`;
         }).join("") : "<li>Пусто</li>";
         
         enemyPicksList.innerHTML = enemyPicks.length ? enemyPicks.map(h => {
             const imgSrc = `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/${getHeroImageName(h)}.png`;
-            console.log(`Loading image for ${h}: ${imgSrc}`); // Логирование URL
+            console.log(`Loading image for ${h}: ${imgSrc}`);
             return `<li><img src="${imgSrc}" alt="${h}" onerror="this.src='https://placehold.co/32x32'">${h}</li>`;
         }).join("") : "<li>Пусто</li>";
         
@@ -294,7 +294,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const card = document.createElement("li");
             card.className = "hero-card counter-pick";
             const imgSrc = `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/${getHeroImageName(counter)}.png`;
-            console.log(`Loading counter-pick image for ${counter}: ${imgSrc}`); // Логирование URL
+            console.log(`Loading counter-pick image for ${counter}: ${imgSrc}`);
             card.innerHTML = `
                 <img src="${imgSrc}" alt="${counter}" onerror="this.src='https://placehold.co/32x32'">
                 <span>${counter}</span>
