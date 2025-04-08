@@ -63,14 +63,14 @@ button:hover {
 }
 
 #share:hover {
-    background-color: rgba(255, 0, 0, 0.1); /* Лёгкий красный фон при наведении */
+    background-color: rgba(255, 0, 0, 0.1);
 }
 
 .share-icon {
     width: 20px;
     height: 20px;
     margin-right: 10px;
-    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%); /* Белый цвет */
+    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
 }
 
 .dota-logo {
@@ -127,6 +127,12 @@ button:hover {
     border-radius: 5px;
 }
 
+#my-picks li img, #enemy-picks li img {
+    width: 22px; /* Уменьшено на 70% от 32px */
+    height: 22px;
+    margin-right: 10px;
+}
+
 #counter-picks {
     border: 2px solid #fff;
     padding: 10px;
@@ -155,6 +161,8 @@ button:hover {
 }
 
 .counter-pick img {
+    width: 32px;
+    height: 32px;
     margin-right: 0;
     margin-bottom: 5px;
 }
