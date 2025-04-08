@@ -174,8 +174,7 @@ document.addEventListener("DOMContentLoaded", () => {
     restartBtn.addEventListener("click", resetDraft);
 
     function getHeroImageName(hero) {
-        const mappedName = heroImageMap[hero] || hero.toLowerCase().replace(/ /g, "_");
-        return mappedName;
+        return heroImageMap[hero] || hero.toLowerCase().replace(/ /g, "_");
     }
 
     function startDraft(team) {
@@ -206,8 +205,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const heroesToPick = pickPhase <= 4 ? 2 : 1;
         phaseTitle.textContent = `Фаза ${pickPhase} (Выбор ${pickCount}/${heroesToPick})`;
         
-        myPicksList.innerHTML = myPicks.length ? myPicks.map(h => `<li><img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/${getHeroImageName(h)}.png" alt="${h}">${h}</li>`).join("") : "<li>Пусто</li>";
-        enemyPicksList.innerHTML = enemyPicks.length ? enemyPicks.map(h => `<li><img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/${getHeroImageName(h)}.png" alt="${h}">${h}</li>`).join("") : "<li>Пусто</li>";
+        myPicksList.innerHTML = myPicks.length ? myPicks.map(h => `<li><img src="https://cdn.dota2.com/apps/dota2/images/heroes/${getHeroImageName(h)}_icon.png" alt="${h}">${h}</li>`).join("") : "<li>Пусто</li>";
+        enemyPicksList.innerHTML = enemyPicks.length ? enemyPicks.map(h => `<li><img src="https://cdn.dota2.com/apps/dota2/images/heroes/${getHeroImageName(h)}_icon.png" alt="${h}">${h}</li>`).join("") : "<li>Пусто</li>";
         
         const wasEnemyTurn = (pickPhase % 2 === 0 && firstTeam === "enemy") || (pickPhase % 2 === 1 && firstTeam === "my");
         if (pickCount === 0 && pickPhase > 1 && wasEnemyTurn) {
@@ -241,9 +240,9 @@ document.addEventListener("DOMContentLoaded", () => {
         counterPicksList.innerHTML = "";
         suggestions.slice(0, 3).forEach(counter => {
             const card = document.createElement("li");
-            card.className = "hero-card";
+            card.className = "hero-card counter-pick";
             card.innerHTML = `
-                <img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/${getHeroImageName(counter)}.png" alt="${counter}">
+                <img src="https://cdn.dota2.com/apps/dota2/images/heroes/${getHeroImageName(counter)}_icon.png" alt="${counter}">
                 <span>${counter}</span>
             `;
             card.addEventListener("click", () => pickHero(counter));
@@ -258,7 +257,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const card = document.createElement("div");
                 card.className = "hero-card";
                 card.innerHTML = `
-                    <img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/${getHeroImageName(hero)}.png" alt="${hero}">
+                    <img src="https://cdn.dota2.com/apps/dota2/images/heroes/${getHeroImageName(hero)}_icon.png" alt="${hero}">
                     <span>${hero}</span>
                 `;
                 card.addEventListener("click", () => pickHero(hero));
