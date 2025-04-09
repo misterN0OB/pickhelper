@@ -196,7 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const heroList = document.getElementById("hero-list");
     const filterButtons = document.getElementById("filter-buttons");
     const restartBtn = document.getElementById("restart");
-    const statsBtn = document.getElementById("stats-btn");
+    const winProbabilityBtn = document.getElementById("win-probability");
     const shareBtn = document.getElementById("share");
 
     const clickSound = new Audio('tonk.mp3');
@@ -206,13 +206,12 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("my-first").addEventListener("click", () => startDraft("my"));
     restartBtn.addEventListener("click", () => resetDraft());
     shareBtn.addEventListener("click", () => shareApp());
-    statsBtn.addEventListener("click", () => showStats());
+    winProbabilityBtn.addEventListener("click", () => showWinProbability());
 
-    // Добавляем кнопки фильтрации
     const roles = ["all", "carry", "mid", "offlane", "support"];
     roles.forEach(role => {
         const btn = document.createElement("button");
-        btn.textContent = role === "all" ? "Все" : role.charAt(0).toUpperCase() + role.slice(1);
+        btn.textContent = role === "all" ? "Все" : role === "carry" ? "Керри" : role === "mid" ? "Мид" : role === "offlane" ? "Оффлейн" : "Саппорт";
         btn.addEventListener("click", () => {
             currentFilter = role;
             renderHeroes();
@@ -244,6 +243,8 @@ document.addEventListener("DOMContentLoaded", () => {
         filterButtons.style.display = "flex";
         heroList.style.display = "flex";
         heroList.style.flexWrap = "wrap";
+        restartBtn.style.display = "block";
+        winProbabilityBtn.style.display = "none";
         updateInterface();
         renderHeroes();
     }
@@ -259,7 +260,7 @@ document.addEventListener("DOMContentLoaded", () => {
         draftScreen.style.display = "none";
         counterPicksDiv.style.display = "none";
         restartBtn.style.display = "none";
-        statsBtn.style.display = "none";
+        winProbabilityBtn.style.display = "none";
         filterButtons.style.display = "none";
         heroList.style.display = "flex";
         heroList.style.flexWrap = "wrap";
@@ -314,7 +315,7 @@ document.addEventListener("DOMContentLoaded", () => {
             filterButtons.style.display = "none";
             counterPicksDiv.style.display = "none";
             restartBtn.style.display = "block";
-            statsBtn.style.display = "block";
+            winProbabilityBtn.style.display = "block";
             phaseTitle.textContent = "Драфт завершён!";
         }
     }
@@ -438,30 +439,12 @@ document.addEventListener("DOMContentLoaded", () => {
         return null;
     }
 
-    function showStats() {
-        const roleCount = { carry: 0, mid: 0, offlane: 0, support: 0 };
-        myPicks.forEach(hero => {
-            const role = heroRoles[hero] || "unknown";
-            if (role in roleCount) roleCount[role]++;
-        });
-
-        let totalCounterWeight = 0;
-        enemyPicks.forEach(enemy => {
-            myPicks.forEach(pick => {
-                const counter = heroes[enemy].find(([h]) => h === pick);
-                if (counter) totalCounterWeight += counter[1];
-            });
-        });
-
-        const statsText = `
-            Роли:\n- Керри: ${roleCount.carry}\n- Мид: ${roleCount.mid}\n- Оффлейн: ${roleCount.offlane}\n- Саппорт: ${roleCount.support}
-            \nОбщий вес контр-пиков: ${totalCounterWeight}
-        `;
-
+    function showWinProbability() {
+        const message = "Вероятность победы: в разработке!\nПока это просто заглушка.";
         Telegram.WebApp.showPopup({
-            title: "Статистика драфта",
-            message: statsText,
-            buttons: [{ type: "default", text: "Скрыть статистику" }]
+            title: "Вероятность победы",
+            message: message,
+            buttons: [{ type: "default", text: "Закрыть" }]
         });
     }
 });
