@@ -128,8 +128,8 @@ button:hover {
 }
 
 #my-picks li img, #enemy-picks li img {
-    width: 50px; /* Установлено 50px */
-    height: 50px;
+    width: 32px; /* Вернули 32px */
+    height: 32px;
     margin-right: 10px;
 }
 
