@@ -14,35 +14,31 @@
             <img src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_horiz.png" alt="Dota 2 Logo" class="dota-logo">
             <h1>Dota 2 Draft Helper</h1>
             <div class="button-container">
-                <button id="enemy-first">Enemy picks first<br>(Враги выбирают первыми)</button>
-                <button id="my-first">I pick first<br>(Я выбираю первым)</button>
+                <button id="enemy-first">Враги выбирают первыми</button>
+                <button id="my-first">Я выбираю первым</button>
             </div>
             <button id="share">
-                <img src="https://img.icons8.com/ios-filled/20/ffffff/share.png" class="share-icon" alt="Share">
-                Share
+                <img src="https://img.icons8.com/ios-filled/20/ffffff/share.png" class="share-icon" alt="Поделиться">
+                Поделиться
             </button>
         </div>
         <div id="draft-screen" style="display: none;">
             <h2 id="phase-title"></h2>
-            <div id="filter-buttons"></div>
-            <div id="hero-list"></div>
             <div id="my-picks">
-                <h3>My Picks</h3>
+                <h3>Мои пики</h3>
                 <ul id="my-picks-list"><li>Пусто</li></ul>
             </div>
             <div id="enemy-picks">
-                <h3>Enemy Picks</h3>
+                <h3>Пики врагов</h3>
                 <ul id="enemy-picks-list"><li>Пусто</li></ul>
             </div>
             <div id="counter-picks" style="display: none;">
-                <h3>Counter Picks</h3>
+                <h3>Контр-пики</h3>
                 <ul id="counter-picks-list"></ul>
             </div>
-            <button id="restart" style="display: none;">Restart</button>
-            <button id="stats-btn" style="display: none;">
-                <img src="https://img.icons8.com/ios-filled/20/ffffff/statistics.png" class="stats-icon" alt="Stats">
-                Stats
-            </button>
+            <div id="filter-buttons"></div>
+            <div id="hero-list"></div>
+            <button id="restart" style="display: none;">Начать заново</button>
         </div>
     </div>
 </body>
