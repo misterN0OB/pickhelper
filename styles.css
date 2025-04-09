@@ -1,0 +1,211 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: black;
+    color: white;
+    margin: 0;
+    padding: 10px;
+}
+
+#app {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+h1, h2, h3 {
+    color: white;
+    text-align: center;
+}
+
+h1 {
+    font-size: 36px;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: darkred;
+}
+
+#enemy-first, #my-first {
+    width: 100%;
+    padding: 15px 20px;
+    font-weight: bold;
+    white-space: pre-line;
+    line-height: 1.5;
+    font-size: 24px;
+}
+
+#share, #stats-btn {
+    width: 100%;
+    padding: 15px 20px;
+    font-size: 18px;
+    background-color: transparent;
+    border: 2px solid red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto 0;
+}
+
+#share:hover, #stats-btn:hover {
+    background-color: rgba(255, 0, 0, 0.1);
+}
+
+.share-icon, .stats-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
+}
+
+#stats-btn {
+    display: none;
+    width: 150px;
+}
+
+.dota-logo {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+}
+
+#filter-buttons {
+    display: none;
+    flex-wrap: wrap;
+    gap: 5px;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+#filter-buttons button {
+    padding: 5px 10px;
+    font-size: 14px;
+    background-color: #444;
+}
+
+#filter-buttons button.active {
+    background-color: red;
+}
+
+#filter-buttons button:hover {
+    background-color: #666;
+}
+
+#hero-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.hero-card {
+    display: flex;
+    align-items: center;
+    background-color: #333;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: calc(33.33% - 10px);
+    box-sizing: border-box;
+}
+
+.hero-card:hover {
+    background-color: #555;
+}
+
+.hero-card img {
+    width: 32px;
+    height: 32px;
+    margin-right: 10px;
+}
+
+.hero-card span {
+    font-size: 14px;
+}
+
+#my-picks ul, #enemy-picks ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 0;
+    list-style: none;
+}
+
+#my-picks li, #enemy-picks li {
+    display: flex;
+    align-items: center;
+    background-color: #333;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+#my-picks li img, #enemy-picks li img {
+    width: 32px;
+    height: 32px;
+    margin-right: 10px;
+}
+
+#counter-picks {
+    border: 2px solid #fff;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 20px 0;
+}
+
+#counter-picks ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 0;
+    list-style: none;
+    justify-content: center;
+}
+
+.counter-pick {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: #333;
+    padding: 5px;
+    border-radius: 5px;
+    width: calc(33.33% - 15px);
+    box-sizing: border-box;
+}
+
+.counter-pick img {
+    width: 32px;
+    height: 32px;
+    margin-right: 0;
+    margin-bottom: 5px;
+}
+
+.counter-pick.priority-counter {
+    box-shadow: 0 0 10px 2px rgba(0, 255, 0, 0.7);
+    animation: glow 1.5s infinite alternate;
+}
+
+@keyframes glow {
+    from { box-shadow: 0 0 10px 2px rgba(0, 255, 0, 0.7); }
+    to { box-shadow: 0 0 15px 4px rgba(0, 255, 0, 1); }
+}
+
+#restart {
+    display: block;
+    margin: 20px auto;
+    width: 150px;
+}
