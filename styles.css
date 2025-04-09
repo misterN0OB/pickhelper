@@ -167,6 +167,10 @@ button:hover {
     margin-bottom: 5px;
 }
 
+.counter-pick.priority-counter {
+    box-shadow: 0 0 10px 2px rgba(0, 255, 0, 0.7); /* Зелёное свечение */
+}
+
 #restart {
     display: block;
     margin: 20px auto;
