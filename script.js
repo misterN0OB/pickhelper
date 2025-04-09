@@ -126,7 +126,7 @@ const heroes = {
 };
 
 const heroImageMap = {
-    "Anti-Mage": "antimage", // Исправлено с "anti_mage" на "antimage"
+    "Anti-Mage": "antimage",
     "Centaur Warrunner": "centaur",
     "Clockwerk": "rattletrap",
     "Dawnbreaker": "dawnbreaker",
@@ -197,6 +197,16 @@ document.addEventListener("DOMContentLoaded", () => {
         return heroImageMap[hero] || hero.toLowerCase().replace(/ /g, "_");
     }
 
+    function getHeroImageSrc(hero) {
+        const heroImageName = getHeroImageName(hero);
+        // Используем локальные иконки только для Magnus и Outworld Destroyer
+        if (hero === "Magnus" || hero === "Outworld Destroyer") {
+            return `icons/${heroImageName}.png`;
+        }
+        // Остальные берём с CDN
+        return `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/${heroImageName}.png`;
+    }
+
     function startDraft(team) {
         firstTeam = team;
         pickPhase = 1;
@@ -249,13 +259,13 @@ document.addEventListener("DOMContentLoaded", () => {
         phaseTitle.textContent = `Фаза ${pickPhase} (Выбор ${pickCount}/${heroesToPick})`;
         
         myPicksList.innerHTML = myPicks.length ? myPicks.map(h => {
-            const imgSrc = `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/${getHeroImageName(h)}.png`;
+            const imgSrc = getHeroImageSrc(h);
             console.log(`Loading image for ${h}: ${imgSrc}`);
             return `<li><img src="${imgSrc}" alt="${h}" onerror="this.src='https://placehold.co/32x32'">${h}</li>`;
         }).join("") : "<li>Пусто</li>";
         
         enemyPicksList.innerHTML = enemyPicks.length ? enemyPicks.map(h => {
-            const imgSrc = `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/${getHeroImageName(h)}.png`;
+            const imgSrc = getHeroImageSrc(h);
             console.log(`Loading image for ${h}: ${imgSrc}`);
             return `<li><img src="${imgSrc}" alt="${h}" onerror="this.src='https://placehold.co/32x32'">${h}</li>`;
         }).join("") : "<li>Пусто</li>";
@@ -293,7 +303,7 @@ document.addEventListener("DOMContentLoaded", () => {
         suggestions.slice(0, 3).forEach(counter => {
             const card = document.createElement("li");
             card.className = "hero-card counter-pick";
-            const imgSrc = `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/${getHeroImageName(counter)}.png`;
+            const imgSrc = getHeroImageSrc(counter);
             console.log(`Loading counter-pick image for ${counter}: ${imgSrc}`);
             card.innerHTML = `
                 <img src="${imgSrc}" alt="${counter}" onerror="this.src='https://placehold.co/32x32'">
@@ -311,8 +321,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 const card = document.createElement("div");
                 card.className = "hero-card";
                 const img = document.createElement("img");
-                const heroImageName = getHeroImageName(hero);
-                img.src = `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/${heroImageName}.png`;
+                const imgSrc = getHeroImageSrc(hero);
+                img.src = imgSrc;
                 img.alt = hero;
                 img.onerror = () => {
                     console.log(`Ошибка загрузки иконки для ${hero}: ${img.src}`);
