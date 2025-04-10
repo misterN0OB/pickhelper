@@ -184,12 +184,13 @@ let pickPhase = 0;
 let pickCount = 0;
 let firstTeam = null;
 let currentFilter = "all";
-let suggestedCounters = []; // Добавим для передачи в stats.js
+let suggestedCounters = [];
 
 document.addEventListener("DOMContentLoaded", () => {
     const startScreen = document.getElementById("start-screen");
     const draftScreen = document.getElementById("draft-screen");
     const phaseTitle = document.getElementById("phase-title");
+    const turnIndicator = document.getElementById("turn-indicator"); // Новый элемент
     const myPicksList = document.getElementById("my-picks-list");
     const enemyPicksList = document.getElementById("enemy-picks-list");
     const counterPicksList = document.getElementById("counter-picks-list");
@@ -208,7 +209,7 @@ document.addEventListener("DOMContentLoaded", () => {
     restartBtn.addEventListener("click", () => resetDraft());
     shareBtn.addEventListener("click", () => shareApp());
     winProbabilityBtn.addEventListener("click", () => {
-        showWinProbability(myPicks, enemyPicks, suggestedCounters); // Передаём данные в stats.js
+        showWinProbability(myPicks, enemyPicks, suggestedCounters);
     });
 
     const roles = ["all", "carry", "mid", "offlane", "support"];
@@ -269,6 +270,7 @@ document.addEventListener("DOMContentLoaded", () => {
         heroList.style.display = "flex";
         heroList.style.flexWrap = "wrap";
         heroList.innerHTML = "";
+        turnIndicator.style.display = "none"; // Скрываем при рестарте
         filterButtons.querySelectorAll("button").forEach(b => b.classList.remove("active"));
         filterButtons.querySelector("button").classList.add("active");
     }
@@ -307,20 +309,29 @@ document.addEventListener("DOMContentLoaded", () => {
             return `<li><img src="${imgSrc}" alt="${h}" onerror="this.src='https://placehold.co/32x32'">${h}</li>`;
         }).join("") : "<li>Пусто</li>";
         
-        const wasEnemyTurn = (pickPhase % 2 === 0 && firstTeam === "enemy") || (pickPhase % 2 === 1 && firstTeam === "my");
-        if (pickCount === 0 && pickPhase > 1 && wasEnemyTurn) {
-            showCounterPicks();
-        } else {
-            counterPicksDiv.style.display = "none";
-        }
-        
+        // Логика отображения сообщения о том, чья очередь
         if (pickPhase === 6 && pickCount === 1) {
+            phaseTitle.textContent = "Драфт завершён!";
+            turnIndicator.style.display = "none"; // Скрываем сообщение при завершении
             heroList.style.display = "none";
             filterButtons.style.display = "none";
             counterPicksDiv.style.display = "none";
             restartBtn.style.display = "block";
             winProbabilityBtn.style.display = "block";
-            phaseTitle.textContent = "Драфт завершён!";
+        } else {
+            turnIndicator.style.display = "block";
+            if (isEnemyTurn()) {
+                turnIndicator.textContent = `Выбор героев команды врага (${heroesToPick} ${heroesToPick === 1 ? "герой" : "героя"})`;
+            } else {
+                turnIndicator.textContent = `Выбор героев моей команды (${heroesToPick} ${heroesToPick === 1 ? "герой" : "героя"})`;
+            }
+        }
+
+        const wasEnemyTurn = (pickPhase % 2 === 0 && firstTeam === "enemy") || (pickPhase % 2 === 1 && firstTeam === "my");
+        if (pickCount === 0 && pickPhase > 1 && wasEnemyTurn) {
+            showCounterPicks();
+        } else {
+            counterPicksDiv.style.display = "none";
         }
     }
 
@@ -372,7 +383,7 @@ document.addEventListener("DOMContentLoaded", () => {
             })
             .slice(0, 3);
 
-        suggestedCounters = suggestions.map(s => s.hero); // Сохраняем для stats.js
+        suggestedCounters = suggestions.map(s => s.hero);
 
         counterPicksList.innerHTML = "";
         suggestions.forEach(({ hero }, index) => {
