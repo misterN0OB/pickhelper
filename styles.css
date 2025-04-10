@@ -263,18 +263,27 @@ button:hover {
 }
 
 #stats-overlay .percentage {
-    font-size: 48px; /* Увеличиваем размер цифры */
+    font-size: 48px;
     margin: 10px 0;
     color: #fff;
-    animation: glow 0.5s infinite alternate; /* Добавляем пульсацию как у контр-пиков */
+    animation: glow 0.5s infinite alternate;
 }
 
 #stats-overlay .disclaimer {
-    font-size: 10px; /* Уменьшаем размер текста до 10px */
+    font-size: 10px;
     color: #aaa;
     margin-top: 10px;
 }
 
 #stats-overlay button {
     margin-top: 20px;
+}
+
+#turn-indicator {
+    border: 2px solid red; /* Красная рамка */
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px auto;
+    text-align: center;
+    max-width: 300px;
 }
