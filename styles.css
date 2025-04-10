@@ -17,15 +17,15 @@ h1, h2, h3 {
 }
 
 h1 {
-    font-size: 28px; /* Уменьшаем с 36px до 28px */
+    font-size: 28px;
     display: inline-flex;
     align-items: baseline;
 }
 
 h1 .beta {
-    font-size: 14px; /* Ещё меньше для "beta" */
+    font-size: 14px;
     margin-left: 5px;
-    color: #ff5555; /* Лёгкий красноватый оттенок для выделения */
+    color: #ff5555;
 }
 
 .button-container {
@@ -199,7 +199,7 @@ button:hover {
 
 .counter-pick.priority-counter {
     box-shadow: 0 0 10px 2px rgba(0, 255, 0, 0.7);
-    animation: glow 0.5s infinite alternate; /* Ускоряем с 1.5s до 0.5s */
+    animation: glow 0.5s infinite alternate;
 }
 
 @keyframes glow {
@@ -223,4 +223,56 @@ button:hover {
 
 #win-probability:hover {
     background-color: rgba(255, 0, 0, 0.1);
+}
+
+#stats-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+#stats-overlay .stats-content {
+    background-color: #222;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 90%;
+    width: 400px;
+}
+
+#stats-overlay .progress-bar {
+    width: 80%;
+    margin: 10px auto;
+    background-color: #333;
+    border-radius: 5px;
+    height: 20px;
+    overflow: hidden;
+}
+
+#stats-overlay .progress-fill {
+    height: 100%;
+    background-color: #ff5555;
+    transition: width 1s ease;
+}
+
+#stats-overlay .percentage {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+#stats-overlay .disclaimer {
+    font-size: 12px;
+    color: #aaa;
+    margin-top: 10px;
+}
+
+#stats-overlay button {
+    margin-top: 20px;
 }
