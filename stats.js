@@ -14,8 +14,8 @@ function showWinProbability(myPicks, enemyPicks, suggestedCounters) {
             }
         });
     });
-    if (counterEffectiveness > 0) winChance += Math.min(counterEffectiveness / 2, 20);
-    const recommendationBonus = countersUsed * 5;
+    if (counterEffectiveness > 0) winChance += Math.min(counterEffectiveness / 2, 15); // Уменьшаем максимум до 15
+    const recommendationBonus = countersUsed * 3; // Уменьшаем бонус с 5 до 3
     winChance += recommendationBonus;
 
     // Проверка синергии
@@ -29,20 +29,26 @@ function showWinProbability(myPicks, enemyPicks, suggestedCounters) {
             if (synergy) synergyBonus += synergy[2];
         }
     }
-    winChance += Math.min(synergyBonus, 15);
+    winChance += Math.min(synergyBonus, 10); // Уменьшаем максимум до 10
 
-    // Штраф за несбалансированный состав
+    // Анализ ролей моей команды
     const roles = myPicks.map(h => heroRoles[h] || "unknown");
-    const hasCarry = roles.includes("carry");
-    const hasMid = roles.includes("mid");
-    const hasOfflane = roles.includes("offlane");
-    const hasSupport = roles.includes("support");
+    const carryCount = roles.filter(r => r === "carry").length;
+    const midCount = roles.filter(r => r === "mid").length;
+    const offlaneCount = roles.filter(r => r === "offlane").length;
+    const supportCount = roles.filter(r => r === "support").length;
+
     let rolePenalty = 0;
 
-    if (!hasCarry) rolePenalty -= 20; // Нет керри — большой штраф
-    if (!hasMid) rolePenalty -= 15;   // Нет мидера — средний штраф
-    if (!hasOfflane) rolePenalty -= 10; // Нет оффлейнера — меньший штраф
-    if (!hasSupport) rolePenalty -= 5;  // Нет саппорта — минимальный штраф
+    // Штрафы за отсутствие ролей
+    if (carryCount === 0) rolePenalty -= 30; // Нет керри
+    if (midCount === 0) rolePenalty -= 25;   // Нет мидера
+    if (offlaneCount === 0) rolePenalty -= 20; // Нет оффлейнера
+    if (supportCount === 0) rolePenalty -= 15; // Нет саппорта
+
+    // Штраф за перекос ролей
+    if (supportCount >= 4) rolePenalty -= 20; // Слишком много саппортов
+    if (carryCount >= 4) rolePenalty -= 20;   // Слишком много керри
 
     winChance += rolePenalty;
 
